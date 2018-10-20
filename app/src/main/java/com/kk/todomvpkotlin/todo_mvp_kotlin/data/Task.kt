@@ -66,6 +66,18 @@ class Task {
         mCompleted = completed
     }
 
+    /**
+     * タスクタイトルの取得.
+     * もしタスクタイトルが入力されていない場合には説明文を返す
+     */
+    fun getTitleForList(): String {
+        if (mTitle != null && !mTitle.equals("")) {
+            return mTitle as String
+        } else {
+            return mDescription as String
+        }
+    }
+
     fun isCompleted(): Boolean {
         return mCompleted
     }
