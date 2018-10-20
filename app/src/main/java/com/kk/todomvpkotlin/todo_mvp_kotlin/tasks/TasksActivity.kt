@@ -9,10 +9,13 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import com.kk.todomvpkotlin.todo_mvp_kotlin.R
+import com.kk.todomvpkotlin.todo_mvp_kotlin.util.ActivityUtil
 
 class TasksActivity : AppCompatActivity() {
 
     private var mDrawerLayout: DrawerLayout? = null
+
+    private var mTasksPresenter: TasksPresenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +36,17 @@ class TasksActivity : AppCompatActivity() {
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         setUpDrawerContent(navigationView)
 
-        // TODO FragmentとPresenterを作る
+        // FragmentをActivityに配置
+        val tasksFragment: TasksFragment = TasksFragment.newInstance()
+        ActivityUtil.addFragmentToActivity(
+            supportFragmentManager,
+            tasksFragment, R.id.contentFrame
+        )
 
+        // Presenterの生成
+        mTasksPresenter = TasksPresenter()
+
+        // TODO: Activityが再生成されたときの処理
     }
 
     /**
