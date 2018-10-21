@@ -9,8 +9,7 @@
             android:id="@+id/tasksContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-    >
+            android:orientation="vertical" >
 
         <LinearLayout
                 android:id="@+id/tasksLL"
@@ -56,8 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/no_tasks_all"
-                    android:layout_marginBottom="@dimen/list_item_padding"
-            />
+                    android:layout_marginBottom="@dimen/list_item_padding" />
 
             <TextView
                     android:id="@+id/noTasksAdd"
