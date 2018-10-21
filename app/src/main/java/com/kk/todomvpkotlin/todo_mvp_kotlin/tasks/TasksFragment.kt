@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,18 +48,14 @@ class TasksFragment: Fragment(), TasksContract.View {
         val root: View = inflater.inflate(R.layout.tasks_flg, container, false)
 
         // 「+」ボタンを設置する
-        val fab: FloatingActionButton = activity!!.findViewById(R.id.fab_add_task)
+        val fab: FloatingActionButton = activity!!.findViewById(R.id.fab_add_task) as FloatingActionButton
         fab.setImageResource(R.drawable.ic_add)
         // 「+」ボタンが押されたときは追加画面へ遷移させる
         fab.setOnClickListener {
-            View.OnClickListener {
-                // Presenter側でデータの処理を行う
-                // データの処理が終わったらFragment側へ画面遷移要求を投げる
-                // TODO なぜかリスナー呼ばれないため要チェック
-                mTasksPresenter?.addNewTask()
-            }
+            // Presenter側でデータの処理を行う
+            // データの処理が終わったらFragment側へ画面遷移要求を投げる
+            mTasksPresenter?.addNewTask()
         }
-
         return root
     }
 
@@ -66,7 +63,8 @@ class TasksFragment: Fragment(), TasksContract.View {
      * タスク追加画面へ遷移する処理
      */
     override fun showAddTask() {
-        val intent: Intent = Intent(context, AddEditTaskActivity::class.java)
+        Log.d("kkkk", "fragment -> showAddTask()")
+        val intent = Intent(context, AddEditTaskActivity::class.java)
         startActivity(intent)
     }
 
@@ -127,7 +125,7 @@ class TasksFragment: Fragment(), TasksContract.View {
                 titleTextView.text = task.getTitleForList()
 
                 // チェックボックス
-                val completeBox: CheckBox = rowView.findViewById(R.id.complete)
+                val completeBox: CheckBox = rowView.findViewById(R.id.complete) as CheckBox
                 completeBox.isChecked = task.isCompleted()
 
                 // 完了と未完了タスクで背景色を変える
