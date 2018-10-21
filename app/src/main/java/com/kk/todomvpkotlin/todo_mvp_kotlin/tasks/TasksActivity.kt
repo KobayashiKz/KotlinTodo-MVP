@@ -7,8 +7,10 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.MenuItem
 import com.kk.todomvpkotlin.todo_mvp_kotlin.R
+import com.kk.todomvpkotlin.todo_mvp_kotlin.data.source.TasksRepository
 import com.kk.todomvpkotlin.todo_mvp_kotlin.util.ActivityUtil
 
 class TasksActivity : AppCompatActivity() {
@@ -25,7 +27,7 @@ class TasksActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         val actionBar: ActionBar? = supportActionBar
-        // ハンバーガー画像を設定.
+        // ハンバーガー画像を設定
         actionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
         // タップイベントの有効化
         actionBar.setDisplayHomeAsUpEnabled(true)
@@ -39,12 +41,10 @@ class TasksActivity : AppCompatActivity() {
         // FragmentをActivityに配置
         val tasksFragment: TasksFragment = TasksFragment.newInstance()
         ActivityUtil.addFragmentToActivity(
-            supportFragmentManager,
-            tasksFragment, R.id.contentFrame
-        )
+            supportFragmentManager, tasksFragment, R.id.contentFrame)
 
         // Presenterの生成
-        mTasksPresenter = TasksPresenter()
+        mTasksPresenter = TasksPresenter(TasksRepository(), tasksFragment)
 
         // TODO: Activityが再生成されたときの処理
     }
