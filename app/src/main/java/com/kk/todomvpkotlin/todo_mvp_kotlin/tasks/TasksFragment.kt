@@ -63,7 +63,6 @@ class TasksFragment: Fragment(), TasksContract.View {
      * タスク追加画面へ遷移する処理
      */
     override fun showAddTask() {
-        Log.d("kkkk", "fragment -> showAddTask()")
         val intent = Intent(context, AddEditTaskActivity::class.java)
         startActivity(intent)
     }
