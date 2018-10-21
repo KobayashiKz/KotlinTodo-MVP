@@ -1,6 +1,6 @@
-package com.kk.todomvpkotlin.todo_mvp_kotlin.tasks
+package com.kk.todomvpkotlin.todo_mvp_kotlin.addedittask
 
-interface TasksContract {
+interface AddEditTaskContract {
 
     /**
      * Presenterから呼ばれActivityやFragmentで処理する
@@ -8,17 +8,15 @@ interface TasksContract {
      */
     interface View {
 
-        fun showAddTask()
-
-        fun setActionListener(tasksPresenter: TasksPresenter)
+        // リスナーの登録要求
+        fun setUserActionListener(listener: UserActionsListener)
     }
 
     /**
      * ActivityやFragmentから呼ばれPresenterで処理する
      * 基本的にUI以外の処理でデータの取得や保存などをおこなう
      */
-    interface UserActionListener {
-
-        fun addNewTask()
+    interface UserActionsListener {
+        // TODO
     }
 }

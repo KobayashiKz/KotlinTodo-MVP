@@ -1,6 +1,10 @@
 package com.kk.todomvpkotlin.todo_mvp_kotlin.tasks
 
+import android.content.Intent
+import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +12,12 @@ import android.widget.BaseAdapter
 import android.widget.CheckBox
 import android.widget.TextView
 import com.kk.todomvpkotlin.todo_mvp_kotlin.R
+import com.kk.todomvpkotlin.todo_mvp_kotlin.addedittask.AddEditTaskActivity
 import com.kk.todomvpkotlin.todo_mvp_kotlin.data.Task
 
-
 class TasksFragment: Fragment(), TasksContract.View {
+
+    private var mTasksPresenter: TasksPresenter? = null
 
     /**
      * タスクのListViewタップ時に呼ばれるListener
@@ -34,6 +40,39 @@ class TasksFragment: Fragment(), TasksContract.View {
         override fun onActivateTaskClick(activateTask: Task) {
             // TODO Presenterにタスク未完了要求を投げる
         }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        // rootとなるViewの設定
+        val root: View = inflater.inflate(R.layout.tasks_flg, container, false)
+
+        // 「+」ボタンを設置する
+        val fab: FloatingActionButton = activity!!.findViewById(R.id.fab_add_task) as FloatingActionButton
+        fab.setImageResource(R.drawable.ic_add)
+        // 「+」ボタンが押されたときは追加画面へ遷移させる
+        fab.setOnClickListener {
+            // Presenter側でデータの処理を行う
+            // データの処理が終わったらFragment側へ画面遷移要求を投げる
+            mTasksPresenter?.addNewTask()
+        }
+        return root
+    }
+
+    /**
+     * タスク追加画面へ遷移する処理
+     */
+    override fun showAddTask() {
+        Log.d("kkkk", "fragment -> showAddTask()")
+        val intent = Intent(context, AddEditTaskActivity::class.java)
+        startActivity(intent)
+    }
+
+    /**
+     * Presenterのリスナーをセット
+     */
+    override fun setActionListener(tasksPresenter: TasksPresenter) {
+        mTasksPresenter = tasksPresenter
     }
 
     companion object {
@@ -86,7 +125,7 @@ class TasksFragment: Fragment(), TasksContract.View {
                 titleTextView.text = task.getTitleForList()
 
                 // チェックボックス
-                val completeBox: CheckBox = rowView.findViewById(R.id.complete)
+                val completeBox: CheckBox = rowView.findViewById(R.id.complete) as CheckBox
                 completeBox.isChecked = task.isCompleted()
 
                 // 完了と未完了タスクで背景色を変える
