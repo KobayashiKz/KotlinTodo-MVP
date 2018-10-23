@@ -1,5 +1,7 @@
 package com.kk.todomvpkotlin.todo_mvp_kotlin.tasks
 
+import com.kk.todomvpkotlin.todo_mvp_kotlin.data.Task
+
 interface TasksContract {
 
     /**
@@ -11,6 +13,8 @@ interface TasksContract {
         fun showAddTask()
 
         fun setActionListener(tasksPresenter: TasksPresenter)
+
+        fun showTaskMarkActive()
     }
 
     /**
@@ -20,5 +24,11 @@ interface TasksContract {
     interface UserActionListener {
 
         fun addNewTask()
+
+        fun completeTask(completeTask: Task)
+
+        fun activateTask(task: Task)
+
+        fun loadTasks(forceUpdate: Boolean)
     }
 }

@@ -19,7 +19,7 @@ class Task {
      * @param title
      * @param description
      */
-    fun Task(title: String, description: String) {
+    constructor(title: String, description: String) {
         mId = UUID.randomUUID().toString()
         mTitle = title
         mDescription = description
@@ -32,7 +32,7 @@ class Task {
      * @param description
      * @param id
      */
-    fun Task(title: String, description: String, id: String) {
+    constructor(title: String?, description: String?, id: String?) {
         mId = id
         mTitle = title
         mDescription = description
@@ -45,7 +45,7 @@ class Task {
      * @param description
      * @param completed
      */
-    fun Task(title: String, description: String, completed: Boolean) {
+    constructor(title: String, description: String, completed: Boolean) {
         mId = UUID.randomUUID().toString()
         mTitle = title
         mDescription = description
@@ -59,7 +59,7 @@ class Task {
      * @param id
      * @param completed
      */
-    fun Task(title: String, description: String, id: String, completed: Boolean) {
+    constructor(title: String?, description: String?, id: String?, completed: Boolean) {
         mId = id
         mTitle = title
         mDescription = description
@@ -89,6 +89,18 @@ class Task {
     fun isEmpty(): Boolean {
         return (mId == null || mId.equals( "") &&
                 mTitle == null || mTitle.equals(""))
+    }
+
+    fun getId(): String? {
+        return mId
+    }
+
+    fun getTitle(): String? {
+        return mTitle
+    }
+
+    fun getDescription(): String? {
+        return mDescription
     }
 
     override fun equals(other: Any?): Boolean {
