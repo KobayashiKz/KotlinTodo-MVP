@@ -14,4 +14,7 @@ interface TaskDataSource {
         fun onDataNotAvailable()
     }
 
+    fun completeTask(completeTask: Task)
+
+    fun activateTask(task: Task)
 }

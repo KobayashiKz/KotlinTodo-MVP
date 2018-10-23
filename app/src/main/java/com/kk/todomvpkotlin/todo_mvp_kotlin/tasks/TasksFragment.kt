@@ -3,8 +3,8 @@ package com.kk.todomvpkotlin.todo_mvp_kotlin.tasks
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,11 +34,13 @@ class TasksFragment: Fragment(), TasksContract.View {
         }
 
         override fun onCompleteTaskClick(completedTask: Task) {
-            // TODO Presenterにタスク完了要求を投げる
+            // Presenterにタスク完了要求を投げる
+            mTasksPresenter?.completeTask(completedTask)
         }
 
         override fun onActivateTaskClick(activateTask: Task) {
-            // TODO Presenterにタスク未完了要求を投げる
+            // Presenterにタスク未完了要求を投げる
+            mTasksPresenter?.activateTask(activateTask)
         }
     }
 
@@ -72,6 +74,24 @@ class TasksFragment: Fragment(), TasksContract.View {
      */
     override fun setActionListener(tasksPresenter: TasksPresenter) {
         mTasksPresenter = tasksPresenter
+    }
+
+    /**
+     * タスクのマークを未完了に変更する
+     */
+    override fun showTaskMarkActive() {
+        // スナックバーに表示して、タスクを更新する
+        Snackbar.make(view!!, getString(R.string.task_marked_active),
+            Snackbar.LENGTH_SHORT).show()
+        loadTasks(false)
+    }
+
+    /**
+     * タスクの再読み込み・更新処理
+     * Presenter側に更新依頼要求を投げる
+     */
+    private fun loadTasks(forceUpdate: Boolean) {
+        mTasksPresenter?.loadTasks(forceUpdate)
     }
 
     companion object {
